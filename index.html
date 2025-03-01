@@ -106,8 +106,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             animation: popIn 0.5s ease-out;
             max-width: 90%;
-            max-height: 50vh; /* Limit the height */
-            overflow-y: auto; /* Allow scrolling if text is too long */
+            max-height: 50vh;
+            overflow-y: auto;
             margin: 20px auto;
             text-align: left;
             font-size: 0.9em;
@@ -161,7 +161,7 @@
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-        // Request stages: Only 4 stages so that the 4th pic (pic4.jpg.jpeg) is the last one
+        // Request stages: 4 stages so that the last stage uses pic4.jpg.jpeg only
         const requestStages = [
             {
                 question: "I'll keep you warm like bamboo soup! 🍜",
@@ -187,7 +187,6 @@
             const offsetRange = 30;
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
-            // Get container dimensions
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
@@ -227,12 +226,12 @@
             });
         });
 
-        // "Yes" button click: Show final celebratory screen with fast-loading GIF and custom poem
+        // "Yes" button click: Show final screen with a fast-loading, cute, romantic GIF and custom poem
         yesButton.addEventListener('click', () => {
             document.body.innerHTML = `
                 <div class="container">
                     <div class="image-container">
-                        <img src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif" 
+                        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" 
                              alt="Happy Pandas" 
                              style="max-width: 300px;">
                     </div>

@@ -1,3 +1,4 @@
+@ -1,295 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,129 @@
       padding: 0;
       box-sizing: border-box;
     }
+    <meta charset="UTF-8" />
+    <title>Will You Be My Valentine?</title>
+    <style>
+        /* ========== CSS STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff99cc, #ffe6e6);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            position: relative;
+        }
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            opacity: 0;
+            animation: float 6s infinite linear;
+        }
+        .image-container {
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        img {
+            max-width: 250px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        h1 {
+            color: #ff3366;
+            margin: 20px 0;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .buttons {
+            margin-top: 30px;
+            position: relative;
+        }
+        button {
+            background: linear-gradient(45deg, #ff3366, #ff6699);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        #yesButton {
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+        #yesButton:hover {
+            transform: scale(1.1) rotate(-3deg);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        #noButton {
+            transition: all 0.5s ease;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes hearts {
+            0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(45deg); opacity: 0; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .love-note {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: popIn 0.5s ease-out;
+            max-width: 90%;
+            max-height: 50vh; /* Limit the height */
+            overflow-y: auto; /* Allow scrolling if text is too long */
+            margin: 20px auto;
+            text-align: left;
+            font-size: 0.9em;
+            line-height: 1.4em;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts container -->
+    <div class="hearts" id="heartsContainer"></div>
 
     body {
       display: flex;
@@ -21,6 +145,18 @@
       overflow: hidden;
       transition: all 0.5s;
     }
+    <!-- Main content container -->
+    <div class="container">
+        <div class="image-container fade-in">
+            <!-- Initial image from GitHub repository -->
+            <img src="https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic1.jpg.jpeg?raw=true" alt="Photo" id="mainImage">
+        </div>
+        <h1 id="question">Will you make me the happiest panda? 🐼💖</h1>
+        <div class="buttons">
+            <button id="yesButton">YES! 🌸 Forever Yours</button>
+            <button id="noButton">Let me think... 🍃</button>
+        </div>
+    </div>
 
     /* ========== CONTAINER & HEARTS ========== */
     .container {
@@ -41,6 +177,8 @@
       opacity: 0;
       animation: float 6s infinite linear;
     }
+    <script>
+        /* ========== JAVASCRIPT ========== */
 
     /* ========== FLOATING KEYFRAMES ========== */
     @keyframes float {
@@ -52,6 +190,20 @@
       20% { opacity: 1; }
       100% { transform: translateY(-1000px) rotate(45deg); opacity: 0; }
     }
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        createHearts();
 
     /* ========== IMAGE ANIMATIONS ========== */
     .image-container {
@@ -71,6 +223,10 @@
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const questionElement = document.getElementById('question');
+        const mainImage = document.getElementById('mainImage');
 
     /* ========== TEXT & BUTTONS ========== */
     h1 {
@@ -107,6 +263,8 @@
     #noButton {
       transition: all 0.5s ease;
     }
+        // Variables to keep track of the "No" button's current position
+        let currentX = 0, currentY = 0;
 
     /* ========== LOVE NOTE POPUP ========== */
     .love-note {
@@ -129,6 +287,26 @@
 <body>
   <!-- 1) Floating Hearts Container -->
   <div class="hearts" id="heartsContainer"></div>
+        // Request stages with images and messages
+        const requestStages = [
+            {
+                question: "I'll keep you warm like bamboo soup! 🍜",
+                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic1.jpg.jpeg?raw=true"
+            },
+            {
+                question: "We'll cuddle like baby pandas! 🐾",
+                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic2.jpg.jpeg?raw=true"
+            },
+            {
+                question: "I'll be your personal sunshine! ☀️",
+                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic3.jpg.jpeg?raw=true"
+            },
+            {
+                question: "My heart only rolls towards you... 🎋",
+                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic4.jpg.jpeg?raw=true"
+            }
+        ];
+        let currentStage = 0;
 
   <!-- 2) Main Content -->
   <div class="container">
@@ -140,6 +318,11 @@
         alt="Photo"
       >
     </div>
+        // "No" button: Move by a small offset (up to ±30px) on hover
+        noButton.addEventListener('mouseover', () => {
+            const offsetRange = 30; // maximum offset per hover
+            const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
+            const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
 
     <h1 id="question">Will you make me the happiest panda? 🐼💖</h1>
     <div class="buttons">
@@ -147,6 +330,8 @@
       <button id="noButton">Let me think... 🍃</button>
     </div>
   </div>
+            let newX = currentX + randomOffsetX;
+            let newY = currentY + randomOffsetY;
 
   <!-- 3) JavaScript -->
   <script>
@@ -164,12 +349,23 @@
       }
     }
     createHearts();
+            // Get container dimensions to ensure the button stays inside
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
 
     // 3.2: References to elements
     const noButton = document.getElementById('noButton');
     const yesButton = document.getElementById('yesButton');
     const questionElement = document.getElementById('question');
     const mainImage = document.getElementById('mainImage');
+            // Clamp new positions within allowed range
+            if (newX < 0) newX = 0;
+            if (newX > maxX) newX = maxX;
+            if (newY < 0) newY = 0;
+            if (newY > maxY) newY = maxY;
 
     // 3.3: Stages with new photos & sweet lines
     const requestStages = [
@@ -191,6 +387,8 @@
       }
     ];
     let currentStage = 0;
+            currentX = newX;
+            currentY = newY;
 
     // 3.4: "No" Button Hover -> Moves away
     noButton.addEventListener('mouseover', () => {
@@ -205,6 +403,9 @@
       noButton.style.transform = `translate(${newX}px, ${newY}px)`;
       noButton.innerHTML = currentStage > 1 ? "Wait... 🌸" : "Let me think... 🍃";
     });
+            noButton.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            noButton.innerHTML = currentStage > 1 ? "Wait... 🌸" : "Let me think... 🍃";
+        });
 
     // 3.5: "No" Button Click -> Cycle through requestStages
     noButton.addEventListener('click', () => {
@@ -228,6 +429,9 @@
         // If we've shown all custom stages, let's revert to the first stage or do something else
         questionElement.innerHTML = "See? You can't escape my love! 💖";
       }
+        // "No" button click: Cycle through stages and update image/message
+        noButton.addEventListener('click', () => {
+            yesButton.style.transform = `scale(${1 + 0.15 * currentStage})`;
 
       // Random little jump again after clicking
       noButton.style.transform = `translate(
@@ -246,6 +450,16 @@
         setTimeout(() => heart.remove(), 4000);
       });
     });
+            if (currentStage < requestStages.length) {
+                questionElement.innerHTML = requestStages[currentStage].question;
+                mainImage.classList.remove('fade-in');
+                void mainImage.offsetWidth;
+                mainImage.classList.add('fade-in');
+                mainImage.src = requestStages[currentStage].image;
+                currentStage++;
+            } else {
+                questionElement.innerHTML = "See? You can't escape my love! 💖";
+            }
 
     // 3.6: "Yes" Button Click -> Final screen
     yesButton.addEventListener('click', () => {
@@ -291,5 +505,75 @@
       });
     });
   </script>
+            // Add a slight jump (up to ±10px) on click
+            const jumpRange = 10;
+            const jumpX = (Math.random() * 2 - 1) * jumpRange;
+            const jumpY = (Math.random() * 2 - 1) * jumpRange;
+            currentX += jumpX;
+            currentY += jumpY;
+
+            // Re-clamp after jump
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+            if (currentX < 0) currentX = 0;
+            if (currentX > maxX) currentX = maxX;
+            if (currentY < 0) currentY = 0;
+            if (currentY > maxY) currentY = maxY;
+            noButton.style.transform = `translate(${currentX}px, ${currentY}px)`;
+
+            // Add romantic particles
+            Array(5).fill().forEach((_, i) => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['🌸', '🍃', '🎋', '💮', '🌺'][i % 5];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animation = 'hearts 4s linear';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            });
+        });
+
+        // "Yes" button click: Show final celebratory screen with new GIF and custom poem in a scrollable container
+        yesButton.addEventListener('click', () => {
+            document.body.innerHTML = `
+                <div class="container">
+                    <div class="image-container">
+                        <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" 
+                             alt="Happy Pandas" 
+                             style="max-width: 300px;">
+                    </div>
+                    <h1 style="font-size: 2.5em; margin: 20px 0;">
+                        Our Forever Begins Now! 💐<br>
+                        <span style="font-size: 0.8em;">(You've adopted this panda for life 🌸)</span>
+                    </h1>
+                    <div class="love-note fade-in">
+                        My sona,<br><br>
+                        I will forever be grateful for that random group chat—if not for them, we might have never found each other. I still can’t believe I almost ignored the request four times, but somehow, destiny had other plans. I truly believe it was all part of God’s plan, leading me straight to you.<br><br>
+                        Thank you for always being so careful and patient with your words, for handling my moods, and for loving me the way you do. I know I’m not the easiest person to be with, and with the distance between us, things aren’t always simple. But your love, your trust, and your unwavering belief in us make everything so much easier. People who see each other every day often take it for granted, but we know what it's like to long for just a second together—to cherish every moment as if it were infinite.<br><br>
+                        On your special day, I just want you to know how much you mean to me. I wish I could be there, to hold you, to celebrate with you, to make you feel as loved as you make me feel every single day. I am sorry I can't send you any gift or be by your side, but I promise my love for you is the greatest gift I can ever give.<br><br>
+                        Just 1.5 years does all we have to wait before we finally hold each other again and I know that by then you will have grown even more into the incredible scientist and businessman you are meant to be. No matter the time, we are growing stronger and more in love every day. Happiest birthday my kutu, you are my heart, my happiness forever. I love you more than words can ever express 💗
+                    </div>
+                </div>
+            `;
+            document.body.style.background = 'linear-gradient(45deg, #ff99cc, #ffffff)';
+
+            const fireworks = Array(30).fill().map(() => {
+                const f = document.createElement('div');
+                f.className = 'heart';
+                f.innerHTML = '🎉';
+                f.style.left = Math.random() * 100 + '%';
+                f.style.animation = 'hearts 3s linear';
+                document.body.appendChild(f);
+                return f;
+            });
+            setTimeout(() => fireworks.forEach(f => f.remove()), 3000);
+
+            const audio = new Audio('https://cdn.pixabay.com/audio/2022/03/07/audio_3d3558d74a.mp3');
+            audio.play().catch(() => {});
+        });
+    </script>
 </body>
 </html>

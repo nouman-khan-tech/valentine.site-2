@@ -127,8 +127,8 @@
     <!-- Main content container -->
     <div class="container">
         <div class="image-container fade-in">
-            <!-- Initial image (local file) -->
-            <img src="pic1.jpg" alt="Photo" id="mainImage">
+            <!-- Initial local image -->
+            <img src="pic1.jpg.jpeg" alt="Photo" id="mainImage">
         </div>
         <h1 id="question">Will you make me the happiest panda? 🐼💖</h1>
         <div class="buttons">
@@ -160,30 +160,29 @@
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-        // Request stages with local images and additional GIF stages
+        // Request stages using local images (with exact filenames) and two GIF stages
         const requestStages = [
             {
                 question: "I'll keep you warm like bamboo soup! 🍜",
-                image: "pic1.jpg"  // local file
+                image: "pic1.jpg.jpeg"
             },
             {
                 question: "We'll cuddle like baby pandas! 🐾",
-                image: "pic2.jpg"  // local file
+                image: "pic2.jpg.jpeg"
             },
             {
                 question: "I'll be your personal sunshine! ☀️",
-                image: "pic3.jpg"  // local file
+                image: "pic3.jpg.jpeg"
+            },
+            {
+                question: "My heart only rolls towards you... 🎋",
+                image: "pic4.jpg.jpeg"
             },
             {
                 question: "You're the bamboo to my panda... 🌿",
                 image: "https://media.giphy.com/media/3o7TKF2DHH2VAYYh7W/giphy.gif"
-            },
-            {
-                question: "My heart only rolls towards you... 🎋",
-                image: "https://media.giphy.com/media/3o7aD2RLCvcZe8k4SQ/giphy.gif"
             }
         ];
-
         let currentStage = 0;
 
         // "No" button: Move by a small offset (up to ±30px) on hover
@@ -192,18 +191,12 @@
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
 
-            let newX = randomOffsetX;
-            let newY = randomOffsetY;
-
-            // Get container dimensions to keep the button inside
+            // Calculate new random position within the button container
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
-            const maxX = containerRect.width - buttonRect.width;
-            const maxY = containerRect.height - buttonRect.height;
-
-            newX = Math.min(Math.max(newX, 0), maxX);
-            newY = Math.min(Math.max(newY, 0), maxY);
+            let newX = Math.random() * (containerRect.width - buttonRect.width);
+            let newY = Math.random() * (containerRect.height - buttonRect.height);
 
             noButton.style.transform = `translate(${newX}px, ${newY}px)`;
             noButton.innerHTML = currentStage > 2 ? "Wait... 🌸" : "Let me think... 🍃";
@@ -242,7 +235,7 @@
             });
         });
 
-        // "Yes" button click: Show final screen with new GIF and custom poem
+        // "Yes" button click: Show final celebratory screen with new GIF and final message
         yesButton.addEventListener('click', () => {
             document.body.innerHTML = `
                 <div class="container">

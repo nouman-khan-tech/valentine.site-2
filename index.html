@@ -161,7 +161,7 @@
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-        // Request stages with local images and GIFs
+        // Request stages: Only 4 stages so that the 4th pic (pic4.jpg.jpeg) is the last one
         const requestStages = [
             {
                 question: "I'll keep you warm like bamboo soup! 🍜",
@@ -178,26 +178,21 @@
             {
                 question: "My heart only rolls towards you... 🎋",
                 image: "pic4.jpg.jpeg"
-            },
-            {
-                question: "You're the bamboo to my panda... 🌿",
-                image: "https://media.giphy.com/media/3o7TKF2DHH2VAYYh7W/giphy.gif"
             }
         ];
         let currentStage = 0;
 
         // "No" button: Move by a small random offset on hover
         noButton.addEventListener('mouseover', () => {
-            const offsetRange = 30; // maximum offset per hover
+            const offsetRange = 30;
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
-
+            // Get container dimensions
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
             let newX = Math.random() * (containerRect.width - buttonRect.width);
             let newY = Math.random() * (containerRect.height - buttonRect.height);
-
             noButton.style.transform = `translate(${newX}px, ${newY}px)`;
             noButton.innerHTML = currentStage > 2 ? "Wait... 🌸" : "Let me think... 🍃";
         });
@@ -205,7 +200,6 @@
         // "No" button click: Cycle through stages and update image/message
         noButton.addEventListener('click', () => {
             yesButton.style.transform = `scale(${1 + 0.15 * currentStage})`;
-
             if (currentStage < requestStages.length) {
                 questionElement.innerHTML = requestStages[currentStage].question;
                 mainImage.classList.remove('fade-in');
@@ -216,13 +210,11 @@
             } else {
                 questionElement.innerHTML = "See? You can't escape my love! 💖";
             }
-
             // Add a slight jump (up to ±10px) on click
             const jumpRange = 10;
             const jumpX = (Math.random() * 2 - 1) * jumpRange;
             const jumpY = (Math.random() * 2 - 1) * jumpRange;
             noButton.style.transform = `translate(${jumpX}px, ${jumpY}px)`;
-
             // Add romantic particles
             Array(5).fill().forEach((_, i) => {
                 const heart = document.createElement('div');
@@ -235,7 +227,7 @@
             });
         });
 
-        // "Yes" button click: Show final screen with fast-loading GIF and custom poem
+        // "Yes" button click: Show final celebratory screen with fast-loading GIF and custom poem
         yesButton.addEventListener('click', () => {
             document.body.innerHTML = `
                 <div class="container">
@@ -258,7 +250,6 @@
                 </div>
             `;
             document.body.style.background = 'linear-gradient(45deg, #ff99cc, #ffffff)';
-
             const fireworks = Array(30).fill().map(() => {
                 const f = document.createElement('div');
                 f.className = 'heart';
@@ -269,7 +260,6 @@
                 return f;
             });
             setTimeout(() => fireworks.forEach(f => f.remove()), 3000);
-
             const audio = new Audio('https://cdn.pixabay.com/audio/2022/03/07/audio_3d3558d74a.mp3');
             audio.play().catch(() => {});
         });

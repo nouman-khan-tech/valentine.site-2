@@ -32,7 +32,6 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            overflow: hidden;
         }
         .heart {
             position: absolute;
@@ -128,8 +127,8 @@
     <!-- Main content container -->
     <div class="container">
         <div class="image-container fade-in">
-            <!-- Initial image from GitHub repository -->
-            <img src="https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic1.jpg.jpeg?raw=true" alt="Photo" id="mainImage">
+            <!-- Initial image (local file) -->
+            <img src="pic1.jpg" alt="Photo" id="mainImage">
         </div>
         <h1 id="question">Will you make me the happiest panda? 🐼💖</h1>
         <div class="buttons">
@@ -161,62 +160,58 @@
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-        // Variables to keep track of the "No" button's current position
-        let currentX = 0, currentY = 0;
-
-        // Request stages with images and messages
+        // Request stages with local images and additional GIF stages
         const requestStages = [
             {
                 question: "I'll keep you warm like bamboo soup! 🍜",
-                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic1.jpg.jpeg?raw=true"
+                image: "pic1.jpg"  // local file
             },
             {
                 question: "We'll cuddle like baby pandas! 🐾",
-                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic2.jpg.jpeg?raw=true"
+                image: "pic2.jpg"  // local file
             },
             {
                 question: "I'll be your personal sunshine! ☀️",
-                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic3.jpg.jpeg?raw=true"
+                image: "pic3.jpg"  // local file
+            },
+            {
+                question: "You're the bamboo to my panda... 🌿",
+                image: "https://media.giphy.com/media/3o7TKF2DHH2VAYYh7W/giphy.gif"
             },
             {
                 question: "My heart only rolls towards you... 🎋",
-                image: "https://github.com/nouman-khan-tech/valentine.site-2/blob/main/pic4.jpg.jpeg?raw=true"
+                image: "https://media.giphy.com/media/3o7aD2RLCvcZe8k4SQ/giphy.gif"
             }
         ];
+
         let currentStage = 0;
 
         // "No" button: Move by a small offset (up to ±30px) on hover
         noButton.addEventListener('mouseover', () => {
-            const offsetRange = 30; // maximum offset per hover
+            const offsetRange = 30;
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
 
-            let newX = currentX + randomOffsetX;
-            let newY = currentY + randomOffsetY;
+            let newX = randomOffsetX;
+            let newY = randomOffsetY;
 
-            // Get container dimensions to ensure the button stays inside
+            // Get container dimensions to keep the button inside
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
             const maxX = containerRect.width - buttonRect.width;
             const maxY = containerRect.height - buttonRect.height;
 
-            // Clamp new positions within allowed range
-            if (newX < 0) newX = 0;
-            if (newX > maxX) newX = maxX;
-            if (newY < 0) newY = 0;
-            if (newY > maxY) newY = maxY;
+            newX = Math.min(Math.max(newX, 0), maxX);
+            newY = Math.min(Math.max(newY, 0), maxY);
 
-            currentX = newX;
-            currentY = newY;
-
-            noButton.style.transform = translate(${currentX}px, ${currentY}px);
-            noButton.innerHTML = currentStage > 1 ? "Wait... 🌸" : "Let me think... 🍃";
+            noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+            noButton.innerHTML = currentStage > 2 ? "Wait... 🌸" : "Let me think... 🍃";
         });
 
         // "No" button click: Cycle through stages and update image/message
         noButton.addEventListener('click', () => {
-            yesButton.style.transform = scale(${1 + 0.15 * currentStage});
+            yesButton.style.transform = `scale(${1 + 0.15 * currentStage})`;
 
             if (currentStage < requestStages.length) {
                 questionElement.innerHTML = requestStages[currentStage].question;
@@ -233,20 +228,7 @@
             const jumpRange = 10;
             const jumpX = (Math.random() * 2 - 1) * jumpRange;
             const jumpY = (Math.random() * 2 - 1) * jumpRange;
-            currentX += jumpX;
-            currentY += jumpY;
-
-            // Re-clamp after jump
-            const container = document.querySelector('.buttons');
-            const containerRect = container.getBoundingClientRect();
-            const buttonRect = noButton.getBoundingClientRect();
-            const maxX = containerRect.width - buttonRect.width;
-            const maxY = containerRect.height - buttonRect.height;
-            if (currentX < 0) currentX = 0;
-            if (currentX > maxX) currentX = maxX;
-            if (currentY < 0) currentY = 0;
-            if (currentY > maxY) currentY = maxY;
-            noButton.style.transform = translate(${currentX}px, ${currentY}px);
+            noButton.style.transform = `translate(${jumpX}px, ${jumpY}px)`;
 
             // Add romantic particles
             Array(5).fill().forEach((_, i) => {
@@ -260,7 +242,7 @@
             });
         });
 
-        // "Yes" button click: Show final celebratory screen with new GIF and custom poem in a scrollable container
+        // "Yes" button click: Show final screen with new GIF and custom poem
         yesButton.addEventListener('click', () => {
             document.body.innerHTML = `
                 <div class="container">
@@ -274,11 +256,11 @@
                         <span style="font-size: 0.8em;">(You've adopted this panda for life 🌸)</span>
                     </h1>
                     <div class="love-note fade-in">
-                        My sona,<br><br>
-                        I will forever be grateful for that random group chat—if not for them, we might have never found each other. I still can’t believe I almost ignored the request four times, but somehow, destiny had other plans. I truly believe it was all part of God’s plan, leading me straight to you.<br><br>
-                        Thank you for always being so careful and patient with your words, for handling my moods, and for loving me the way you do. I know I’m not the easiest person to be with, and with the distance between us, things aren’t always simple. But your love, your trust, and your unwavering belief in us make everything so much easier. People who see each other every day often take it for granted, but we know what it's like to long for just a second together—to cherish every moment as if it were infinite.<br><br>
-                        On your special day, I just want you to know how much you mean to me. I wish I could be there, to hold you, to celebrate with you, to make you feel as loved as you make me feel every single day. I am sorry I can't send you any gift or be by your side, but I promise my love for you is the greatest gift I can ever give.<br><br>
-                        Just 1.5 years does all we have to wait before we finally hold each other again and I know that by then you will have grown even more into the incredible scientist and businessman you are meant to be. No matter the time, we are growing stronger and more in love every day. Happiest birthday my kutu, you are my heart, my happiness forever. I love you more than words can ever express 💗
+                        "In your arms I've found my bamboo grove,<br>
+                        With every heartbeat, my love will grow.<br>
+                        Through all seasons, come what may,<br>
+                        I'll cherish you more with each passing day."<br>
+                        🐾 Yours Eternally 🐾
                     </div>
                 </div>
             `;

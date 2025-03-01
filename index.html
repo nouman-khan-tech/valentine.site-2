@@ -1,16 +1,6 @@
-@ -1,295 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Will You Be My Valentine?</title>
-  <style>
-    /* ========== GLOBAL STYLES ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     <meta charset="UTF-8" />
     <title>Will You Be My Valentine?</title>
     <style>
@@ -135,16 +125,6 @@
     <!-- Floating hearts container -->
     <div class="hearts" id="heartsContainer"></div>
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(45deg, #ff99cc, #ffe6e6);
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      overflow: hidden;
-      transition: all 0.5s;
-    }
     <!-- Main content container -->
     <div class="container">
         <div class="image-container fade-in">
@@ -158,38 +138,9 @@
         </div>
     </div>
 
-    /* ========== CONTAINER & HEARTS ========== */
-    .container {
-      text-align: center;
-      max-width: 600px;
-      padding: 20px;
-      position: relative;
-    }
-    .hearts {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .heart {
-      position: absolute;
-      opacity: 0;
-      animation: float 6s infinite linear;
-    }
     <script>
         /* ========== JAVASCRIPT ========== */
 
-    /* ========== FLOATING KEYFRAMES ========== */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    @keyframes hearts {
-      0% { transform: translateY(0) rotate(45deg); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-1000px) rotate(45deg); opacity: 0; }
-    }
         // Create floating hearts
         function createHearts() {
             const heartsContainer = document.getElementById('heartsContainer');
@@ -205,88 +156,14 @@
         }
         createHearts();
 
-    /* ========== IMAGE ANIMATIONS ========== */
-    .image-container {
-      margin: 20px 0;
-      animation: float 3s ease-in-out infinite;
-    }
-    img {
-      max-width: 250px;
-      border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s;
-    }
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
         const noButton = document.getElementById('noButton');
         const yesButton = document.getElementById('yesButton');
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-    /* ========== TEXT & BUTTONS ========== */
-    h1 {
-      color: #ff3366;
-      margin: 20px 0;
-      font-size: 2em;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .buttons {
-      margin-top: 30px;
-      position: relative;
-    }
-    button {
-      background: linear-gradient(45deg, #ff3366, #ff6699);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      margin: 10px;
-      font-size: 1.2em;
-      cursor: pointer;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    #yesButton {
-      transform: scale(1);
-    }
-    #yesButton:hover {
-      transform: scale(1.1) rotate(-3deg);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
-    #noButton {
-      transition: all 0.5s ease;
-    }
         // Variables to keep track of the "No" button's current position
         let currentX = 0, currentY = 0;
 
-    /* ========== LOVE NOTE POPUP ========== */
-    .love-note {
-      position: absolute;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: popIn 0.5s ease-out;
-      max-width: 250px;
-      display: none;
-    }
-    @keyframes popIn {
-      0% { transform: scale(0); }
-      80% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-  </style>
-</head>
-<body>
-  <!-- 1) Floating Hearts Container -->
-  <div class="hearts" id="heartsContainer"></div>
         // Request stages with images and messages
         const requestStages = [
             {
@@ -308,47 +185,15 @@
         ];
         let currentStage = 0;
 
-  <!-- 2) Main Content -->
-  <div class="container">
-    <div class="image-container fade-in">
-      <!-- Initial image: We'll start with the first photo -->
-      <img 
-        id="mainImage" 
-        src="https://media-hosting.imagekit.io/7841a1ebb302455a/IMG_20250226_233010_529.jpg?Expires=1835203560&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=UXhmBOll7x5qtd9uGMHpXf9mtCg3-~AvnW17GxRhCLhKfYSIZwCr2CtBoYiUI-gAIeOVXQsm~-AqzP7Yc81QIvI53Zh9IbbnwomCH22hpscGBy9ziQBS-eTUwdhe90JW2UHDO6-OUxW6ZsiDYZ~IX7YkiZ0Unoog52SzmXysNkScUeWZY8Hw6grT5OryYlO07iKyNBlsqyZn~0Fzbz50I3F2vjCDV99p9X-fr7BS~PHOio6t-k7Q7blw0lcLgeON4r0qVxNa3b6jVU1xwlVbBDG4SaUlYpeDJ-VU4MR3d0jLInalqfyxBG1ZohDdveAkB7I7n2KUUFFndaKWiDQ4Pw__" 
-        alt="Photo"
-      >
-    </div>
         // "No" button: Move by a small offset (up to ±30px) on hover
         noButton.addEventListener('mouseover', () => {
             const offsetRange = 30; // maximum offset per hover
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
 
-    <h1 id="question">Will you make me the happiest panda? 🐼💖</h1>
-    <div class="buttons">
-      <button id="yesButton">YES! 🌸 Forever Yours</button>
-      <button id="noButton">Let me think... 🍃</button>
-    </div>
-  </div>
             let newX = currentX + randomOffsetX;
             let newY = currentY + randomOffsetY;
 
-  <!-- 3) JavaScript -->
-  <script>
-    // 3.1: Floating hearts background
-    function createHearts() {
-      const heartsContainer = document.getElementById('heartsContainer');
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDelay = Math.random() * 2 + 's';
-        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-        heartsContainer.appendChild(heart);
-      }
-    }
-    createHearts();
             // Get container dimensions to ensure the button stays inside
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
@@ -356,100 +201,23 @@
             const maxX = containerRect.width - buttonRect.width;
             const maxY = containerRect.height - buttonRect.height;
 
-    // 3.2: References to elements
-    const noButton = document.getElementById('noButton');
-    const yesButton = document.getElementById('yesButton');
-    const questionElement = document.getElementById('question');
-    const mainImage = document.getElementById('mainImage');
             // Clamp new positions within allowed range
             if (newX < 0) newX = 0;
             if (newX > maxX) newX = maxX;
             if (newY < 0) newY = 0;
             if (newY > maxY) newY = maxY;
 
-    // 3.3: Stages with new photos & sweet lines
-    const requestStages = [
-      {
-        question: "Your smile is my favorite sight in the world! 😊",
-        image: "https://media-hosting.imagekit.io/9aed62102daa430f/IMG_20250226_233830_794.jpg?Expires=1835203091&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=tIVwP9M0~pgEgaQUwhnEe8SBJd02wv8cHywb0QmW5XxCr-yBeoH5tNxOt3wwpOPaj7g0ro3~whBvLD-0Li3V200VN4W3jc3kHoDoS-NbqrSxqivWA3CmdJRNvE9s6jPy8uibWdxLrjG09HjsFyoyzumVsFYuz7tsSM4rD4zb-8YecyrDm9XywdaOj6xVux0iXF5HaTiuOjCEOuHIgU01WzY24q4S9JCaZCku0E7w4yjYXkZPjpEokvnXvWX3uTUuQyAzYoAnBm~TZqvu4Yh5RigNLPOAh-~zBsA4Wu56AM~LKuvvyQieG7KCjiz-0oUL-gq~3MDNGJpg3m8qbiy61A__"
-      },
-      {
-        question: "I love your silly faces and everything about you! 😘",
-        image: "https://media-hosting.imagekit.io/e1e6fe7d65164b2f/IMG_20250227_001422_342.jpg?Expires=1835203542&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PYRWXDry2zy2ZPAqkoB3l2lAhYrkdIubITlhVfBmG9SK7UVKVIF9-sMJnzPCym7cWVYbMDooi2yZAWHpX4pAUu7LQVb7swcfX0qd949WsybBkxKl592ibIqxk-FeU-qcO1grsoYCTfSdvxeSt-kQjykQpy-ax9JFYdxNa-MixznIg8XQtmEhEc2u1UHAD1Ejq5ZkuEUyhgNV-aYFyDr0JIsB1p3cUyLKmH~6U8c7yU3D5ADfcHrWL6y2MKabNkfqaEMgk2cWZtIaBD9cUjeJRDj96cTJLNa20NNgS2d3G-vCr2WTjfRljQZeAz5rjvHkbGcPxihTIP4CZzMd6y3O~Q__"
-      },
-      {
-        question: "Life is brighter with you around! ✨",
-        image: "https://media-hosting.imagekit.io/183b7df2ad474b2f/IMG_20250226_233636_879.jpg?Expires=1835203548&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Q585rPaHdJ0rhk4AJAaxDudMkyf5f3ZsnZnE8TWjtl30zqMdR4ceeZuGOnRAuy6MvpCXpNDB38bVYpxplaeC2AJCBvV0amKWGtbCUMtcgBQlUXFAoYWrQvGpWtWJW3I~tlo2KCGzfWlGcvVnhBwOvHRTASaf6xMrkwV6T8zn1X8qhju~Wu1vFQ-VCSCTeNrEeIYDKaUTYgumx9z0xm95YNpyoacB6bVvd-wWGGrcpR8IL181T~mgc9NlnWIYK0Iqo7rH-dcnrT4FjSbJNwHZIL9cHVmVHUyq4SWxoi~HJ2inxve~N4Z2nfPwFB3-xhEBKXcbX0HzPX0nRGmjVXpp6w__"
-      },
-      {
-        question: "We were made for each other, don't you think? 🥰",
-        image: "https://media.giphy.com/media/3o7aD2RLCvcZe8k4SQ/giphy.gif"
-      }
-    ];
-    let currentStage = 0;
             currentX = newX;
             currentY = newY;
 
-    // 3.4: "No" Button Hover -> Moves away
-    noButton.addEventListener('mouseover', () => {
-      const container = document.querySelector('.buttons');
-      const containerRect = container.getBoundingClientRect();
-      const maxX = containerRect.width - noButton.offsetWidth;
-      const maxY = containerRect.height - noButton.offsetHeight;
-      
-      const newX = Math.random() * maxX;
-      const newY = Math.random() * maxY;
-      
-      noButton.style.transform = `translate(${newX}px, ${newY}px)`;
-      noButton.innerHTML = currentStage > 1 ? "Wait... 🌸" : "Let me think... 🍃";
-    });
-            noButton.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            noButton.style.transform = translate(${currentX}px, ${currentY}px);
             noButton.innerHTML = currentStage > 1 ? "Wait... 🌸" : "Let me think... 🍃";
         });
 
-    // 3.5: "No" Button Click -> Cycle through requestStages
-    noButton.addEventListener('click', () => {
-      // Make the "Yes" button slightly grow each time
-      yesButton.style.transform = `scale(${1 + 0.15 * currentStage})`;
-      
-      // If we haven't gone through all stages, show the next one
-      if (currentStage < requestStages.length) {
-        questionElement.innerHTML = requestStages[currentStage].question;
-        
-        // Trigger fade-in animation for the main image
-        mainImage.classList.remove('fade-in');
-        void mainImage.offsetWidth; // reflow to restart animation
-        mainImage.classList.add('fade-in');
-        
-        // Update the main image
-        mainImage.src = requestStages[currentStage].image;
-        
-        currentStage++;
-      } else {
-        // If we've shown all custom stages, let's revert to the first stage or do something else
-        questionElement.innerHTML = "See? You can't escape my love! 💖";
-      }
         // "No" button click: Cycle through stages and update image/message
         noButton.addEventListener('click', () => {
-            yesButton.style.transform = `scale(${1 + 0.15 * currentStage})`;
+            yesButton.style.transform = scale(${1 + 0.15 * currentStage});
 
-      // Random little jump again after clicking
-      noButton.style.transform = `translate(
-        ${Math.random() * 300 - 150}px, 
-        ${Math.random() * 300 - 150}px
-      )`;
-      
-      // Add romantic particles
-      Array(5).fill().forEach((_, i) => {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = ['🌸', '🍃', '🎋', '💮', '🌺'][i % 5];
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animation = 'hearts 4s linear';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-      });
-    });
             if (currentStage < requestStages.length) {
                 questionElement.innerHTML = requestStages[currentStage].question;
                 mainImage.classList.remove('fade-in');
@@ -461,50 +229,6 @@
                 questionElement.innerHTML = "See? You can't escape my love! 💖";
             }
 
-    // 3.6: "Yes" Button Click -> Final screen
-    yesButton.addEventListener('click', () => {
-      document.body.innerHTML = `
-        <div class="container">
-          <div class="image-container">
-            <img src="https://media.giphy.com/media/3o7TKUAl3hcz6njk7C/giphy.gif" 
-                 alt="Happy Pandas" 
-                 style="max-width: 300px;">
-          </div>
-          <h1 style="font-size: 2.5em; margin: 20px 0;">
-            Our Forever Begins Now! 💐<br>
-            <span style="font-size: 0.8em;">(You've adopted this panda for life 🌸)</span>
-          </h1>
-          <div class="love-note fade-in" style="display: block;">
-            "In your arms I've found my bamboo grove,<br>
-            With every heartbeat, my love will grow.<br>
-            Through all seasons, come what may,<br>
-            I'll cherish you more with each passing day."<br>
-            🐾 Yours Eternally 🐾
-          </div>
-        </div>
-      `;
-      document.body.style.background = 'linear-gradient(45deg, #ff99cc, #ffffff)';
-      
-      // Firework hearts/flowers
-      const fireworks = Array(30).fill().map(() => {
-        const f = document.createElement('div');
-        f.className = 'heart';
-        f.innerHTML = '🎉';
-        f.style.left = Math.random() * 100 + '%';
-        f.style.animation = 'hearts 3s linear';
-        document.body.appendChild(f);
-        return f;
-      });
-      
-      setTimeout(() => fireworks.forEach(f => f.remove()), 3000);
-      
-      // Play romantic sound (needs user interaction)
-      const audio = new Audio('https://cdn.pixabay.com/audio/2022/03/07/audio_3d3558d74a.mp3');
-      audio.play().catch(() => {
-        // Some browsers block autoplay. The user might have to click again.
-      });
-    });
-  </script>
             // Add a slight jump (up to ±10px) on click
             const jumpRange = 10;
             const jumpX = (Math.random() * 2 - 1) * jumpRange;
@@ -522,7 +246,7 @@
             if (currentX > maxX) currentX = maxX;
             if (currentY < 0) currentY = 0;
             if (currentY > maxY) currentY = maxY;
-            noButton.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            noButton.style.transform = translate(${currentX}px, ${currentY}px);
 
             // Add romantic particles
             Array(5).fill().forEach((_, i) => {

@@ -112,6 +112,7 @@
             text-align: left;
             font-size: 0.9em;
             line-height: 1.4em;
+            white-space: pre-line;
         }
         @keyframes popIn {
             0% { transform: scale(0); }
@@ -160,7 +161,7 @@
         const questionElement = document.getElementById('question');
         const mainImage = document.getElementById('mainImage');
 
-        // Request stages using local images (with exact filenames) and two GIF stages
+        // Request stages with local images and GIFs
         const requestStages = [
             {
                 question: "I'll keep you warm like bamboo soup! 🍜",
@@ -185,13 +186,12 @@
         ];
         let currentStage = 0;
 
-        // "No" button: Move by a small offset (up to ±30px) on hover
+        // "No" button: Move by a small random offset on hover
         noButton.addEventListener('mouseover', () => {
-            const offsetRange = 30;
+            const offsetRange = 30; // maximum offset per hover
             const randomOffsetX = (Math.random() * 2 - 1) * offsetRange;
             const randomOffsetY = (Math.random() * 2 - 1) * offsetRange;
 
-            // Calculate new random position within the button container
             const container = document.querySelector('.buttons');
             const containerRect = container.getBoundingClientRect();
             const buttonRect = noButton.getBoundingClientRect();
@@ -235,12 +235,12 @@
             });
         });
 
-        // "Yes" button click: Show final celebratory screen with new GIF and final message
+        // "Yes" button click: Show final screen with fast-loading GIF and custom poem
         yesButton.addEventListener('click', () => {
             document.body.innerHTML = `
                 <div class="container">
                     <div class="image-container">
-                        <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" 
+                        <img src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif" 
                              alt="Happy Pandas" 
                              style="max-width: 300px;">
                     </div>
@@ -249,11 +249,11 @@
                         <span style="font-size: 0.8em;">(You've adopted this panda for life 🌸)</span>
                     </h1>
                     <div class="love-note fade-in">
-                        "In your arms I've found my bamboo grove,<br>
-                        With every heartbeat, my love will grow.<br>
-                        Through all seasons, come what may,<br>
-                        I'll cherish you more with each passing day."<br>
-                        🐾 Yours Eternally 🐾
+                        My sona,<br><br>
+                        I will forever be grateful for that random group chat—if not for them, we might have never found each other. I still can’t believe I almost ignored the request four times, but somehow, destiny had other plans. I truly believe it was all part of God’s plan, leading me straight to you.<br><br>
+                        Thank you for always being so careful and patient with your words, for handling my moods, and for loving me the way you do. I know I’m not the easiest person to be with, and with the distance between us, things aren’t always simple. But your love, your trust, and your unwavering belief in us make everything so much easier. People who see each other every day often take it for granted, but we know what it's like to long for just a second together—to cherish every moment as if it were infinite.<br><br>
+                        On your special day, I just want you to know how much you mean to me. I wish I could be there, to hold you, to celebrate with you, to make you feel as loved as you make me feel every single day. I am sorry I can't send you any gift or be by your side, but I promise my love for you is the greatest gift I can ever give.<br><br>
+                        Just 1.5 years does all we have to wait before we finally hold each other again and I know that by then you will have grown even more into the incredible scientist and businessman you are meant to be. No matter the time, we are growing stronger and more in love every day. Happiest birthday my kutu, you are my heart, my happiness forever. I love you more than words can ever express 💗
                     </div>
                 </div>
             `;

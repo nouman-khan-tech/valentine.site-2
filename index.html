@@ -55,7 +55,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 200px;
+      width: 200px;  /* Enlarged for better detail */
       height: 180px;
       transform: translate(-50%, -50%);
       z-index: 2;
@@ -102,11 +102,11 @@
       background: black;
       border: 3px solid black;
       border-top: 0;
-      border-radius: 0 0 40px 40px;
+      border-radius: 0 0 40px 40px; /* neutral slight smile */
       transform: translateX(-50%);
       transition: all 0.5s ease;
     }
-    /* Crying/Hurt Expression: Eyes become larger & droopy, mouth becomes a frown */
+    /* Crying/Hurt Expression: Eyes become larger & droopy; mouth becomes a frown */
     .heart-face.crying .eye {
       width: 24px;
       height: 24px;
@@ -128,7 +128,7 @@
       height: 10px;
       bottom: 50px;
     }
-    /* Tears */
+    /* Tears for crying expression */
     .heart-face .tear {
       position: absolute;
       width: 5px;
@@ -228,7 +228,7 @@
       position: relative;
       z-index: 3;
     }
-    /* Push image container down so heart is unobstructed */
+    /* Push image container down so heart remains visible */
     .image-container {
       margin-top: 200px;
       animation: float 3s ease-in-out infinite;
@@ -329,7 +329,7 @@
   <!-- Big heart halves in the background -->
   <div class="big-heart left" id="heartLeft">❤</div>
   <div class="big-heart right" id="heartRight">❤</div>
-  <!-- Humanized Heart Face with realistic, doe-like eyes -->
+  <!-- Humanized Heart Face with realistic, doe-like eyes and adjustable expression -->
   <div id="heartFace" class="heart-face neutral">
     <div class="eye left"></div>
     <div class="eye right"></div>
@@ -385,7 +385,7 @@
     const knifeMan = document.getElementById('knifeMan');
     const knifeArm = document.getElementById('knifeArm');
 
-    // Function to set heart face expression ("neutral", "crying", "happy")
+    // Function to set heart face expression: "neutral", "crying", "happy"
     function setHeartExpression(expression) {
       heartFace.className = "heart-face " + expression;
     }
@@ -435,7 +435,7 @@
       heartLeft.style.transform = `translate(calc(-50% - ${crackLevel}px), -50%) rotate(-${crackLevel/4}deg)`;
       heartRight.style.transform = `translate(calc(-50% + ${crackLevel}px), -50%) rotate(${crackLevel/4}deg)`;
       
-      // Update heart face to crying (hurt) expression with larger, droopy eyes and frowning mouth
+      // Update heart face to crying (hurt) expression (frown, droopy doe-like eyes)
       setHeartExpression("crying");
       
       // Animate knife strike on the arm
@@ -467,7 +467,7 @@
       } else {
         questionElement.innerHTML = "See? You can't escape my love! 💖";
       }
-      // Slight jump for the "No" button
+      // Slight jump for "No" button
       const jumpRange = 10;
       const jumpX = (Math.random() * 2 - 1) * jumpRange;
       const jumpY = (Math.random() * 2 - 1) * jumpRange;
@@ -494,6 +494,7 @@
       heartLeft.classList.add("glow");
       heartRight.classList.add("glow");
       setHeartExpression("happy");
+      // Updated YouTube embed link starting at 15 seconds
       document.body.innerHTML = `
         <div class="container">
           <div class="image-container">
